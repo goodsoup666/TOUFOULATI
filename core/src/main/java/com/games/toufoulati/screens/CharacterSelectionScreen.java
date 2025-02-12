@@ -20,7 +20,6 @@ public class CharacterSelectionScreen implements Screen {
     private Texture maleTexture, femaleTexture;
     private Image selectedCharacter;
     private String selectedGender = "Fille";
-    private String Error="Entrez un nom d'utilisateur";
     private TextField nameInput;
 
     public CharacterSelectionScreen(Game game) {
@@ -73,9 +72,7 @@ public class CharacterSelectionScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 String playerName = nameInput.getText();
                 if(playerName.isEmpty()) {
-                    //nameInput.setMessageText(Error);
                     nameError.setText("Veuillez entrer un nom d'utilisateur");
-
                     return;
                 }
                 PlayerData.setPlayerName(playerName);

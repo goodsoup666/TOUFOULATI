@@ -35,6 +35,8 @@ public class GameMenuScreen implements Screen {
         Label title = new Label("Menu", skin);
         title.setFontScale(2);
 
+        Label GameOver = new Label("", skin);
+
         // Display HP
         hpLabel = new Label("" , skin);
         updateHPLabel();
@@ -49,7 +51,12 @@ public class GameMenuScreen implements Screen {
         game1Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new TchilaGameScreen(game));
+                if(PlayerData.getPlayerHP()>10){
+                    game.setScreen(new TchilaGameScreen(game));
+                } else {
+                    GameOver.setText("NO HP");
+                }
+
             }
         });
 
@@ -58,6 +65,9 @@ public class GameMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 reduceHP(10);
                 updateHPLabel();
+                if(PlayerData.getPlayerHP()==0){
+                    GameOver.setText("Game Over");
+                }
             }
         });
 
@@ -66,6 +76,9 @@ public class GameMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 reduceHP(10);
                 updateHPLabel();
+                if(PlayerData.getPlayerHP()==0){
+                    GameOver.setText("Game Over");
+                }
             }
         });
 
@@ -74,6 +87,9 @@ public class GameMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 restoreHP();
                 updateHPLabel();
+                if(PlayerData.getPlayerHP()==0){
+                    GameOver.setText("Game Over");
+                }
             }
         });
 
@@ -82,6 +98,7 @@ public class GameMenuScreen implements Screen {
         table.setFillParent(true);
         table.add(title).padBottom(20).row();
         table.add(hpLabel).padBottom(20).row();
+        table.add(GameOver).padBottom(20).row();
         table.add(game1Button).width(200).height(50).padBottom(10).row();
         table.add(game2Button).width(200).height(50).padBottom(10).row();
         table.add(game3Button).width(200).height(50).padBottom(10).row();
@@ -97,6 +114,10 @@ public class GameMenuScreen implements Screen {
         if (newHP < 0) newHP = 0;
         PlayerData.setPlayerHP(newHP);
         hpLabel.setText("HP: " + newHP);
+    }
+
+    private void noHP(){
+        if(PlayerData.getPlayerHP() == 0) hpLabel.setText("you're done");
     }
 
     private void restoreHP() {
