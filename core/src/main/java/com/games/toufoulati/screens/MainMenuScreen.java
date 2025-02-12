@@ -27,8 +27,6 @@ public class MainMenuScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        System.out.println("Checking file: " + Gdx.files.internal("backgrounds/main_menu.png").file().getAbsolutePath());
-        System.out.println("Exists: " + Gdx.files.internal("backgrounds/main_menu.png").file().exists());
 
         // Background image
         backgroundTexture = new Texture(Gdx.files.internal("backgrounds/main_menu.png"));

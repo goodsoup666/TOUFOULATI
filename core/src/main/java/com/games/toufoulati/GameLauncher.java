@@ -1,6 +1,7 @@
 package com.games.toufoulati;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.games.toufoulati.screens.MainMenuScreen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,21 +11,30 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class GameLauncher extends Game {
-    //private SpriteBatch batch;
+    private SpriteBatch batch;
+    private BitmapFont font;
     //private Texture image;
 
     @Override
     public void create() {
-        System.out.println("GameLauncher : Setting MainMenuScreen...");
+        batch = new SpriteBatch();
+        font = new BitmapFont();
+        font.getData().setScale(2);
         this.setScreen(new MainMenuScreen(this));
-        //batch = new SpriteBatch();
         //image = new Texture("libgdx.png");
+
+    }
+    public BitmapFont getFont(){
+        return font;
+    }
+
+    public SpriteBatch getBatch(){
+        return batch;
     }
 
     @Override
     public void render() {
-        if(this.getScreen() == null) {
-            System.out.println("Forcing MainMenuScreen...");
+        if (this.getScreen() == null) {
             this.setScreen(new MainMenuScreen(this));
         }
         super.render();
@@ -36,7 +46,10 @@ public class GameLauncher extends Game {
 
     @Override
     public void dispose() {
-        //batch.dispose();
+        batch.dispose();
+        font.dispose();
         //image.dispose();
     }
 }
+
+

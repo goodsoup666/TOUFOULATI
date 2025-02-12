@@ -87,8 +87,8 @@ public class CharacterSelectionScreen implements Screen {
         table.add(new Label("Choisis ton personnage", skin)).padBottom(10).row();
         table.add(selectedCharacter).size(150,150).padBottom(10).row();
         table.add(nameInput).width(250).padBottom(10).row();
-        table.add(maleButton).pad(5);
-        table.add(femaleButton).pad(5).row();
+        table.add(femaleButton).pad(5);
+        table.add(maleButton).pad(5).row();
         table.add(confirmButton).width(200).height(50).padTop(20);
 
         stage.addActor(table);

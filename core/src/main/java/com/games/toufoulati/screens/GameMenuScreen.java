@@ -31,46 +31,53 @@ public class GameMenuScreen implements Screen {
 
         skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
 
-        // Game Menu Title
+        // Game Menu
         Label title = new Label("Menu", skin);
         title.setFontScale(2);
 
         // Display HP
-        hpLabel = new Label("HP: " + PlayerData.getPlayerHP(), skin);
+        hpLabel = new Label("" , skin);
+        updateHPLabel();
 
-        // Placeholder buttons for games
-        TextButton game1Button = new TextButton("TCHILA", skin);
-        TextButton game2Button = new TextButton("LHADJA L3AMYA", skin);
-        TextButton game3Button = new TextButton("game 3", skin);
+        // Buttons for mini-games
+        TextButton game1Button = new TextButton("Tchila", skin);
+        TextButton game2Button = new TextButton("Lhadja l3amia", skin);
+        TextButton game3Button = new TextButton("Game 3", skin);
         TextButton restButton = new TextButton("Repos", skin);
 
-        // Button Listener
+        // Button Listeners
         game1Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                reduceHP(10);
+                game.setScreen(new TchilaGameScreen(game));
             }
         });
+
         game2Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 reduceHP(10);
+                updateHPLabel();
             }
         });
+
         game3Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 reduceHP(10);
+                updateHPLabel();
             }
         });
+
         restButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 restoreHP();
+                updateHPLabel();
             }
         });
 
-        // Table layout
+        // Table Layout
         Table table = new Table();
         table.setFillParent(true);
         table.add(title).padBottom(20).row();
@@ -83,22 +90,28 @@ public class GameMenuScreen implements Screen {
         stage.addActor(table);
 
 
-    }
 
+    }
     private void reduceHP(int amount) {
         int newHP = PlayerData.getPlayerHP() - amount;
-        if(newHP < 0) newHP = 0;
+        if (newHP < 0) newHP = 0;
         PlayerData.setPlayerHP(newHP);
         hpLabel.setText("HP: " + newHP);
     }
+
     private void restoreHP() {
         PlayerData.setPlayerHP(100);
         hpLabel.setText("HP: 100");
     }
 
+    private void updateHPLabel(){
+        hpLabel.setText("HP: " + PlayerData.getPlayerHP());
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        updateHPLabel();
         stage.act(delta);
         stage.draw();
     }
@@ -129,3 +142,6 @@ public class GameMenuScreen implements Screen {
         skin.dispose();
     }
 }
+
+
+
