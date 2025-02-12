@@ -20,6 +20,7 @@ public class CharacterSelectionScreen implements Screen {
     private Texture maleTexture, femaleTexture;
     private Image selectedCharacter;
     private String selectedGender = "Fille";
+    private String Error="Entrez un nom d'utilisateur";
     private TextField nameInput;
 
     public CharacterSelectionScreen(Game game) {
@@ -40,6 +41,7 @@ public class CharacterSelectionScreen implements Screen {
 
         // Character preview
         selectedCharacter = new Image(femaleTexture);
+        Label nameError = new Label("", skin);
 
         // Name input
         nameInput = new TextField("", skin);
@@ -71,6 +73,9 @@ public class CharacterSelectionScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 String playerName = nameInput.getText();
                 if(playerName.isEmpty()) {
+                    //nameInput.setMessageText(Error);
+                    nameError.setText("Veuillez entrer un nom d'utilisateur");
+
                     return;
                 }
                 PlayerData.setPlayerName(playerName);
@@ -86,6 +91,7 @@ public class CharacterSelectionScreen implements Screen {
         table.setFillParent(true);
         table.add(new Label("Choisis ton personnage", skin)).padBottom(10).row();
         table.add(selectedCharacter).size(150,150).padBottom(10).row();
+        table.add(nameError).padBottom(10).row();
         table.add(nameInput).width(250).padBottom(10).row();
         table.add(femaleButton).pad(5);
         table.add(maleButton).pad(5).row();
