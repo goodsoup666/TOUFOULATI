@@ -77,10 +77,16 @@ public class TchilaGameScreen implements Screen {
 
     private void handleInput(){
         float speed = 200 * Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) playerPosition.y += speed; // Up
+        if ((Gdx.input.isKeyPressed(Input.Keys.W)) || Gdx.input.isKeyPressed(Input.Keys.UP)) playerPosition.y += speed; // Up
         if ((Gdx.input.isKeyPressed(Input.Keys.S)) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) playerPosition.y -= speed; // Down
         if ((Gdx.input.isKeyPressed(Input.Keys.A)) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) playerPosition.x -= speed; // Left
         if ((Gdx.input.isKeyPressed(Input.Keys.D)) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) playerPosition.x += speed; // Right
+
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+
+        playerPosition.x = Math.max(0, Math.min(playerPosition.x, screenWidth - playerTexture.getWidth()));
+        playerPosition.y = Math.max(0, Math.min(playerPosition.y, screenHeight - playerTexture.getHeight()));
 
     }
     private void reduceHP(int amount) {

@@ -2,7 +2,9 @@ package com.games.toufoulati.screens;
 
 import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,6 +14,7 @@ public class RockPaperScissorsScreen implements Screen {
     private Game game;
     private SpriteBatch batch;
     private Texture botRock, playerRock, botPaper, playerPaper, botScissors, playerScissors;
+    private Texture background;
     private Texture spriteSheetHand, sprideSheetHand2;
     private Random random;
     private Audio audio;
@@ -19,6 +22,18 @@ public class RockPaperScissorsScreen implements Screen {
     public RockPaperScissorsScreen(Game game) {
         this.game = game;
         random = new Random();
+        this.batch = new SpriteBatch();
+        this.botRock = new Texture("hands/botRock.png");
+        this.playerRock = new Texture("hands/playerRock.png");
+        this.botPaper = new Texture("hands/botPaper.png");
+        this.playerPaper = new Texture("hands/playerPaper.png");
+        this.botScissors = new Texture("hands/botScissors.png");
+        this.playerScissors = new Texture("hands/playerScissors.png");
+        this.background = new Texture("backgrounds/rps_background.png");
+        this.spriteSheetHand = new Texture("spriteSheets/spriteSheetHand.png");
+        this.sprideSheetHand2 = new Texture("spriteSheets/spriteSheetHand2.png");
+        this.random = new Random();
+
 
 
     }
@@ -30,6 +45,10 @@ public class RockPaperScissorsScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
 
     }
 
