@@ -32,11 +32,11 @@ public class CharacterSelectionScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("assets/ui/uiskin.json"));
 
         // Character textures
-        femaleTexture = new Texture("characters/female.png");
-        maleTexture = new Texture("characters/male.png");
+        femaleTexture = new Texture("assets/characters/female.png");
+        maleTexture = new Texture("assets/characters/male.png");
 
         // Character preview
         selectedCharacter = new Image(femaleTexture);
@@ -90,7 +90,7 @@ public class CharacterSelectionScreen implements Screen {
         table.add(selectedCharacter).size(150,150).padBottom(10).row();
         table.add(nameError).padBottom(10).row();
         table.add(nameInput).width(250).padBottom(10).row();
-        table.add(femaleButton).pad(5);
+        table.add(femaleButton).pad(5).row();
         table.add(maleButton).pad(5).row();
         table.add(confirmButton).width(200).height(50).padTop(20);
 

@@ -29,13 +29,13 @@ public class MainMenuScreen implements Screen {
 
 
         // Background image
-        backgroundTexture = new Texture(Gdx.files.internal("backgrounds/main_menu.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("assets/backgrounds/background.png"));
         Image background = new Image(backgroundTexture);
         background.setFillParent(true);
         stage.addActor(background);
 
         //UI skin
-        skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("assets/ui/uiskin.json"));
 
         // Game Title
         Label title = new Label("Toufoulati", skin);

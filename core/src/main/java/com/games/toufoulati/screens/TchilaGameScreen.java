@@ -33,14 +33,14 @@ public class TchilaGameScreen implements Screen {
     public TchilaGameScreen(Game game){
         this.game = game;
         this.batch = new SpriteBatch();
-        this.playerTexture = new Texture("characters/player.png");
-        this.aiTexture = new Texture("characters/ai.png");
-        this.backgroundTexture = new Texture("backgrounds/tchila_playground.png");
+        this.playerTexture = new Texture("assets/characters/player.png");
+        this.aiTexture = new Texture("assets/characters/ai.png");
+        this.backgroundTexture = new Texture("assets/backgrounds/tchila_playground.png");
         this.playerPosition = new Vector2(100, 100);
 
         aiPlayers = new Array<>();
-        aiPlayers.add(new TchilaAI("characters/ai.png", 300, 200));
-        aiPlayers.add(new TchilaAI("characters/ai.png", 400,  150));
+        aiPlayers.add(new TchilaAI("assets/characters/ai.png", 300, 200));
+        aiPlayers.add(new TchilaAI("assets/characters/ai.png", 400,  150));
 
     }
     @Override

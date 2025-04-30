@@ -29,7 +29,7 @@ public class GameMenuScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("assets/ui/uiskin.json"));
 
         // Game Menu
         Label title = new Label("Menu", skin);

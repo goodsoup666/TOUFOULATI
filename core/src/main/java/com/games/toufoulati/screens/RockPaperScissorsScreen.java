@@ -23,15 +23,15 @@ public class RockPaperScissorsScreen implements Screen {
         this.game = game;
         random = new Random();
         this.batch = new SpriteBatch();
-        this.botRock = new Texture("hands/botRock.png");
-        this.playerRock = new Texture("hands/playerRock.png");
-        this.botPaper = new Texture("hands/botPaper.png");
-        this.playerPaper = new Texture("hands/playerPaper.png");
-        this.botScissors = new Texture("hands/botScissors.png");
-        this.playerScissors = new Texture("hands/playerScissors.png");
-        this.background = new Texture("backgrounds/rps_background.png");
-        this.spriteSheetHand = new Texture("spriteSheets/spriteSheetHand.png");
-        this.sprideSheetHand2 = new Texture("spriteSheets/spriteSheetHand2.png");
+        this.botRock = new Texture("assets/hands/botRock.png");
+        this.playerRock = new Texture("assets/hands/playerRock.png");
+        this.botPaper = new Texture("assets/hands/botPaper.png");
+        this.playerPaper = new Texture("assets/hands/playerPaper.png");
+        this.botScissors = new Texture("assets/hands/botScissors.png");
+        this.playerScissors = new Texture("assets/hands/playerScissors.png");
+        this.background = new Texture("assets/backgrounds/rps_background.png");
+        this.spriteSheetHand = new Texture("assets/spriteSheets/spriteSheetHand.png");
+        this.sprideSheetHand2 = new Texture("assets/spriteSheets/spriteSheetHand2.png");
         this.random = new Random();
 
 
