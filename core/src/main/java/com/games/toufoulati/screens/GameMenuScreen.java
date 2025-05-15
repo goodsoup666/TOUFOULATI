@@ -45,6 +45,8 @@ public class GameMenuScreen implements Screen {
         TextButton game1Button = new TextButton("Tchila", skin);
         TextButton game2Button = new TextButton("Lhadja l3amia", skin);
         TextButton game3Button = new TextButton("Game 3", skin);
+        TextButton baccalaureatButton = new TextButton("Baccalauréat", skin);
+
         TextButton restButton = new TextButton("Repos", skin);
 
         // Button Listeners
@@ -93,6 +95,18 @@ public class GameMenuScreen implements Screen {
             }
         });
 
+        baccalaureatButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (PlayerData.getPlayerHP() > 10) {
+                    game.setScreen(new BaccalaureatScreen(game));
+                } else {
+                    GameOver.setText("NO HP");
+                }
+            }
+        });
+
+
         // Table Layout
         Table table = new Table();
         table.setFillParent(true);
@@ -103,6 +117,8 @@ public class GameMenuScreen implements Screen {
         table.add(game2Button).width(200).height(50).padBottom(10).row();
         table.add(game3Button).width(200).height(50).padBottom(10).row();
         table.add(restButton).width(200).height(50).padBottom(10).row();
+        table.add(baccalaureatButton).width(200).height(50).padBottom(10).row();
+
 
         stage.addActor(table);
 
