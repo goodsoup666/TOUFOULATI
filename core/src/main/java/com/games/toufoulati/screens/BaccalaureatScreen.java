@@ -16,6 +16,10 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.games.toufoulati.utils.WordDatabase;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.Group;
+
+
 
 
 import java.awt.*;
@@ -36,12 +40,19 @@ public class BaccalaureatScreen implements Screen {
     // UI elements
     private Label letterLabel, timerLabel, scoreLabel, roundLabel, resultLabel;
 
+
+
     private TextField countryField, animalField, nameField, objectField, colorField, fruitsField;
     private Label botCountry, botAnimal, botName, botObject, botColor, botFruit;
 
     private TextButton validateButton;
     private Texture backgroundTexture;
     private Image backgroundImage;
+    private int playerWins = 0;
+    private int botWins = 0;
+    private Group letterGroup;
+
+
 
 
     public BaccalaureatScreen(Game game) {
@@ -57,6 +68,12 @@ public class BaccalaureatScreen implements Screen {
         letterLabel = new Label("Lettre : " + randomLetter, skin);
         letterLabel.setFontScale(2f);
         letterLabel.setColor(Color.BLACK);
+
+        letterGroup = new Group();
+        letterGroup.setSize(letterLabel.getWidth(), letterLabel.getHeight());
+        letterGroup.setTransform(true); // permet les transformations
+        letterGroup.addActor(letterLabel);
+
 
         timerLabel = new Label("Temps restant : " + timeLeft, skin);
         timerLabel.setColor(Color.BLACK);
@@ -116,14 +133,14 @@ public class BaccalaureatScreen implements Screen {
         root.setFillParent(true);
         root.top().padTop(30);
         root.add(roundLabel).colspan(2).padBottom(10).row();
-        root.add(letterLabel).colspan(2).padBottom(10).row();
+        root.add(letterGroup).colspan(2).padBottom(10).row();
         root.add(timerLabel).colspan(2).padBottom(10).row();
         root.add(scoreLabel).colspan(2).padBottom(10).row();
         root.add(resultLabel).colspan(2).padBottom(20).row();
 
         // Tableau joueur
         Table playerTable = new Table();
-        playerTable.add(new Label("👦 Joueur", skin)).padBottom(10).row();
+        playerTable.add(new Label(" Joueur", skin)).padBottom(10).row();
         playerTable.add(countryField).width(250).pad(5).row();
         playerTable.add(animalField).width(250).pad(5).row();
         playerTable.add(nameField).width(250).pad(5).row();
@@ -133,7 +150,7 @@ public class BaccalaureatScreen implements Screen {
 
         // Tableau bot
         Table botTable = new Table();
-        botTable.add(new Label("🤖 Bot", skin)).padBottom(10).row();
+        botTable.add(new Label(" Bot", skin)).padBottom(10).row();
         botTable.add(botCountry).width(250).pad(5).row();
         botTable.add(botAnimal).width(250).pad(5).row();
         botTable.add(botName).width(250).pad(5).row();
@@ -210,14 +227,17 @@ public class BaccalaureatScreen implements Screen {
         if (!botColor.getText().isEmpty()) botScore += 10;
         if (!botFruit.getText().isEmpty()) botScore += 10;
 
-        // Affichage résultat
+
         if (points > botScore) {
+            playerWins++;
             resultLabel.setText("✅ Tu as gagné la manche !");
         } else if (points < botScore) {
-            resultLabel.setText("🤖 Le bot a gagné la manche !");
+            botWins++;
+            resultLabel.setText(" Le bot a gagné la manche !");
         } else {
-            resultLabel.setText("😮 Égalité !");
+            resultLabel.setText(" Égalité !");
         }
+
 
         // Prochaine manche
         if (currentRound < totalRounds) {
@@ -235,8 +255,30 @@ public class BaccalaureatScreen implements Screen {
     private void nextRound() {
         currentRound++;
         roundLabel.setText("Manche : " + currentRound + " / " + totalRounds);
+
         randomLetter = getRandomLetter();
         letterLabel.setText("Lettre : " + randomLetter);
+
+        // ✅ Animation sur le Group contenant le label
+        letterGroup.setOrigin(letterGroup.getWidth() / 2, letterGroup.getHeight() / 2);
+        letterGroup.setScale(1f);
+        letterGroup.setRotation(0);
+
+        letterGroup.addAction(
+            Actions.sequence(
+                Actions.parallel(
+                    Actions.scaleTo(1.4f, 1.4f, 0.3f),
+                    Actions.rotateBy(15f, 0.3f)
+                ),
+                Actions.parallel(
+                    Actions.scaleTo(1f, 1f, 0.3f),
+                    Actions.rotateBy(-15f, 0.3f)
+                )
+            )
+        );
+
+
+
         timerLabel.setText("Temps restant : 60");
         resultLabel.setText("");
         timeLeft = 60;
@@ -265,32 +307,18 @@ public class BaccalaureatScreen implements Screen {
     }
 
     private void showEndScreen() {
-        stage.clear(); // Nettoie l’ancien affichage
+        boolean playerWon = playerWins > botWins;
 
-        Label endLabel = new Label("🎉 Partie terminée !", skin);
-        endLabel.setFontScale(2f);
-        endLabel.setColor(Color.BLACK);
 
-        Label finalScore = new Label("Score final : " + score, skin);
-        finalScore.setColor(Color.DARK_GRAY);
+        System.out.println("------ Résultat Baccalauréat ------");
+        System.out.println("Score final : " + score);
+        System.out.println("Manches gagnées : Toi = " + playerWins + ", Bot = " + botWins);
+        System.out.println(playerWon ? "🎉 Tu as gagné la partie !" : "🤖 Le bot a gagné !");
 
-        TextButton backButton = new TextButton("Retour au menu", skin);
-        backButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameMenuScreen(game)); // retour au menu principal
-            }
-        });
 
-        Table endTable = new Table();
-        endTable.setFillParent(true);
-        endTable.center();
-        endTable.add(endLabel).padBottom(20).row();
-        endTable.add(finalScore).padBottom(20).row();
-        endTable.add(backButton).width(200).height(50);
-
-        stage.addActor(endTable);
+        game.setScreen(new GameOverScreen(game, playerWon));
     }
+
 
 
     @Override public void show() {}
